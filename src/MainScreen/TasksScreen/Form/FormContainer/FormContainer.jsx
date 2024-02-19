@@ -9,7 +9,8 @@ export function FormContainer({
     isError,
     array,
     add,
-    minus
+    minus,
+    allTime
 }) {
 
     const conditionToDelete = 0;
@@ -54,6 +55,10 @@ export function FormContainer({
                     )
                 })}
             </div>
+
+            {allTime > 0 && (
+                <p className="allTimeTasks mt-4">{Math.ceil(allTime / 60)} минут</p>
+            )}
         </>
     )
 }

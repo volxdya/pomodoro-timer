@@ -49,6 +49,7 @@ export function Form() {
         task.set(array.find(el => el.id == currentId.get()));
     }, [])
 
+
     // current task
     useEffect(() => {
         taskSetter();
@@ -64,8 +65,10 @@ export function Form() {
     }
 
     function add() {
-        current.countPomodoros += 1;
-        setter();
+        if (current.countPomodoros >= 1) {
+            current.countPomodoros += 1;
+            setter();
+        }
     }
 
     function minus() {
@@ -73,6 +76,12 @@ export function Form() {
             current.countPomodoros -= 1;
             setter();
         }
+    }
+
+    let allTime = 0;
+
+    for (let i = 0; i < array.length; i++) {
+        allTime += array[i].time;
     }
 
 
@@ -87,6 +96,7 @@ export function Form() {
             array={array}
             add={add}
             minus={minus}
+            allTime={allTime}
         />
     )
 }

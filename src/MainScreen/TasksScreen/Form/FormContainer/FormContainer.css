@@ -31,3 +31,7 @@
     display: table;
     width: 100%;
 }
+.allTimeTasks {
+    font-size: 17px;
+    color: #999999
+}
