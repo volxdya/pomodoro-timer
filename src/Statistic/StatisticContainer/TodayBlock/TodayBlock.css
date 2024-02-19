@@ -1,0 +1,33 @@
+.currentDay {
+    padding: 20px;
+    height: 260px;
+}
+.pomodoros, .currentDay {
+    background-color: #e1e1e1;
+}
+.pomodoros {
+    height: 170px;
+}
+.allTime {
+    color: #DC3E22;
+    font-weight: bold;
+}
+.countPomodorosStatistic {
+    color: #999999;
+    font-size: 24px;
+    margin-left: 15px;
+}
+.main {
+    height: 160px;
+    display: flex;
+    align-items: center;
+}
+.bottomPomodoros {
+    height: 40px;
+    background-color: #DC3E22;
+    color: #FFFFFF;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

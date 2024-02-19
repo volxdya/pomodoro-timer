@@ -1,0 +1,39 @@
+.dropdownMenu {
+    width: 360px;
+    height: 130px;
+    position: absolute;
+}
+.dropdownContent {
+    background-color: #FFFFFF;
+    outline: 1px solid #C4C4C4;
+    margin-left: 160px;
+
+    width: 100%;
+}
+.dropdownMenuItem {
+    color: #999999;
+}
+.dropdownMenuItem:hover {
+    cursor: pointer;
+}
+.modal-title-content {
+    width: 100%;
+}
+.button-delete {
+    background-color: #DC3E22;
+    height: 55px;
+    width: 160px;
+    border: none;
+    outline: none;
+    color: #FFFFFF;
+}
+.noDelete {
+    color: black;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.noDelete:hover {
+    color: rgb(65, 65, 65);
+    text-decoration: underline;
+    cursor: pointer;
+}

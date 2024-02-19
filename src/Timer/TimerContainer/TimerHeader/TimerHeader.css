@@ -1,0 +1,15 @@
+.currentTask {
+    background-color: #C4C4C4;
+    height: 55px;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+.currentId, .notActiveTask {
+    padding-left: 20px;
+}
+.currentPomodoros {
+    padding-right: 20px;
+}
+.currentPomodoros, .currentId, .notActiveTask {
+    padding-top: 15px;
+}
