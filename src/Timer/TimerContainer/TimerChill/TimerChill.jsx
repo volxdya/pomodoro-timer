@@ -1,8 +1,17 @@
 import { useHookstate } from "@hookstate/core";
 import { chillTime } from "../../../StateManager/StateManager";
 import { useEffect, useState } from "react";
+import { pulse } from 'react-animations';
+import Radium, { StyleRoot } from 'radium';
 
-export function TimerChill({setIsChill, setIsCounting }) {
+const styles = {
+    pulse: {
+        animation: 'x 1s infinite',
+        animationName: Radium.keyframes(pulse, 'pulse')
+    }
+}
+
+export function TimerChill({ setIsChill, setIsCounting, isAnimated, setIsAnimated }) {
     const timeChill = useHookstate(chillTime);
     let timeLeft = timeChill.get();
 
@@ -18,6 +27,7 @@ export function TimerChill({setIsChill, setIsCounting }) {
 
     function handleSkip() {
         setIsChill(false);
+        setIsAnimated(false);
         timeChill.set(5 * 60);
     }
 
@@ -53,7 +63,15 @@ export function TimerChill({setIsChill, setIsCounting }) {
             <div className="containerTimer">
                 <div className="timerControls">
                     <div className="d-flex justify-content-center">
-                        <h1 className="timerCounter px-3">{minutes}:{seconds}</h1>
+                        {isAnimated ? (
+                            <StyleRoot>
+                                <div className="test" style={styles.pulse}>
+                                    <h1 className="timerCounter px-3">{minutes}:{seconds}</h1>
+                                </div>
+                            </StyleRoot>
+                        ) : (
+                            <h1 className="timerCounter px-3">{minutes}:{seconds}</h1>
+                        )}
                     </div>
                     <br />
                     <div className="d-flex justify-content-center">

@@ -14,6 +14,7 @@ export function TimerContainer({
     isError,
     isCounting,
     setIsCounting,
+    isAnimated
 }) {
     return (
         <div className="timer">
@@ -25,6 +26,7 @@ export function TimerContainer({
                         handlePlusTime={handlePlusTime}
                         minutes={minutes}
                         seconds={seconds}
+                        isAnimated={isAnimated}
                     />
                     <br />
                     <TimerControls

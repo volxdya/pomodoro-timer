@@ -1,6 +1,15 @@
-import { Task } from "../Task/Task"
 import './FormContainer.css';
-import { useEffect } from "react";
+import { pulse } from 'react-animations';
+import Radium, { StyleRoot } from 'radium';
+import { Task } from './../Task/Task';
+
+
+const styles = {
+    pulse: {
+        animation: 'x 0.7s',
+        animationName: Radium.keyframes(pulse, 'pulse')
+    }
+}
 
 export function FormContainer({
     handleSubmit,
@@ -10,19 +19,11 @@ export function FormContainer({
     array,
     add,
     minus,
-    allTime
+    allTime,
 }) {
 
     const conditionToDelete = 0;
-
     const tasks = array.filter((item) => item.time !== conditionToDelete);
-    // useEffect(() => {
-    // if (tasks.indexOf(task.get({ noproxy: true })) === -1) {
-    // task.set({});
-    // } else {
-    // console.log('все ок')
-    // }
-    // })
 
     return (
         <>
@@ -44,14 +45,18 @@ export function FormContainer({
             <div className="tasks">
                 {tasks.map((item) => {
                     return (
-                        <Task
-                            id={item.id}
-                            minus={minus}
-                            add={add}
-                            key={item.id}
-                            countPomodoros={item.countPomodoros}
-                            title={item.title}
-                        />
+                        <StyleRoot>
+                            <div className="test" style={styles.pulse}>
+                                <Task
+                                    id={item.id}
+                                    minus={minus}
+                                    add={add}
+                                    key={item.id}
+                                    countPomodoros={item.countPomodoros}
+                                    title={item.title}
+                                />
+                            </div>
+                        </StyleRoot>
                     )
                 })}
             </div>

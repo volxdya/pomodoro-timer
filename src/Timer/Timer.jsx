@@ -11,6 +11,7 @@ export function Timer() {
     const [isPause, setIsPause] = useState(false);
     const [isCounting, setIsCounting] = useState(false);
     const [isChill, setIsChill] = useState(false);
+    const [isAnimated, setIsAnimated] = useState(false);
 
     // hookState
     const countPauses = useHookstate(countPause);
@@ -61,6 +62,10 @@ export function Timer() {
     function handleMinusTime() {
         if (current.time > 1 * 60) {
             current.time = current.time - 60;
+            setIsAnimated(true);
+            setTimeout(() => {
+                setIsAnimated(false);
+            }, 500)
         }
         taskSet();
     }
@@ -69,6 +74,11 @@ export function Timer() {
         if (current.time < 59 * 60) {
             current.time = current.time + 60;
         }
+        setIsAnimated(true);
+        setTimeout(() => {
+            setIsAnimated(false);
+        }, 500)
+        taskSet();
     }
 
     // getting minutes and seconds
@@ -78,6 +88,9 @@ export function Timer() {
     if (current) {
         minutes = getPadTimeZero(Math.floor(timeLeft / 60));
         seconds = getPadTimeZero(timeLeft - minutes * 60);
+    } else {
+        minutes = 25;
+        seconds = "00"
     }
 
 
@@ -91,6 +104,7 @@ export function Timer() {
                     timeLeft = 1;
                 }
                 current.time = timeLeft -= 1;
+                setIsAnimated(true);
                 taskSet();
             }, 1000)
             const intrevalAllTime = setInterval(() => {
@@ -148,10 +162,13 @@ export function Timer() {
                     taskSet={taskSet}
                     isChill={isChill}
                     setIsChill={setIsChill}
+                    isAnimated={isAnimated}
                 />
             ) : (
                 <TimerChill
+                    setIsAnimated={setIsAnimated}
                     isChill={isChill}
+                    isAnimated={isAnimated}
                     setIsChill={setIsChill}
                     isCounting={isCounting}
                     setIsCounting={setIsCounting}
