@@ -37,7 +37,7 @@ export function Form() {
                 countPomodoros: 1,
                 isCompelete: true,
                 pauses: 0,
-                time: 0.05 * 60,
+                time: 25 * 60,
                 stops: 0,
             }]);
         }
