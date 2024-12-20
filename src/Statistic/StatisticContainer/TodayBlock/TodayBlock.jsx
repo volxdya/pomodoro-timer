@@ -3,6 +3,7 @@ import './TodayBlock.css';
 
 export function TodayBlock({ workTime, today, countPomodoros }) {
   let text = '';
+
   if (countPomodoros.get() == 1) {
     text = 'помидор';
   } else if (countPomodoros.get() > 1 && countPomodoros.get() < 5) {

@@ -11,14 +11,17 @@ import { TimerContainer } from './TimerContainer/TimerContainer.jsx';
 import { TimerChill } from './TimerContainer/TimerChill/TimerChill.jsx';
 
 export function Timer() {
-  // useState
-  const [isError, setIsError] = useState(false);
-  const [isPause, setIsPause] = useState(false);
-  const [isCounting, setIsCounting] = useState(false);
-  const [isChill, setIsChill] = useState(false);
-  const [isAnimated, setIsAnimated] = useState(false);
+  const [data, setData] = useState({
+    isError: false,
+    isPause: false,
+    isChill: false,
+    isAnimated: false,
+    isCounting: false,
+  });
 
-  // hookState
+  const { isAnimated, isError, isChill, isPause, isCounting } = data;
+
+  // HookState
   const countPauses = useHookstate(countPause);
   const task = useHookstate(currentTask);
   let current = task.get({ noproxy: true });
@@ -29,13 +32,13 @@ export function Timer() {
 
   let timeLeft;
 
-  // obj task
+  // Обновление текущей задачи
   if (current) {
     pomodorosOnCurrentTask.set(current.countPomodoros);
     timeLeft = current.time;
   }
 
-  // functions
+  // Functions
   function taskSet() {
     task.set(current);
   }
@@ -45,89 +48,106 @@ export function Timer() {
   }
 
   function handleStart() {
-    setIsPause(false);
     if (current) {
-      setIsError(false);
-      setIsCounting(true);
+      setData((prev) => ({
+        ...prev,
+        isError: false,
+        isCounting: true,
+        isPause: false,
+      }));
     } else {
-      setIsError(true);
+      setData((prev) => ({
+        ...prev,
+        isError: true,
+      }));
     }
-    current.isCompelete = false;
-    task.set(current);
+    if (current) {
+      current.isCompelete = false;
+      taskSet();
+    }
   }
 
   function handleStop() {
-    setIsCounting(false);
-    setIsPause(true);
-    current.pauses = current.pauses + 1;
-    task.set(current);
-    countPauses.set(countPauses.get() + 1);
+    setData((prev) => ({
+      ...prev,
+      isCounting: false,
+      isPause: true,
+    }));
+    if (current) {
+      current.pauses += 1;
+      taskSet();
+      countPauses.set(countPauses.get() + 1);
+    }
   }
 
   function handleMinusTime() {
-    if (current.time > 1 * 60) {
-      current.time = current.time - 60;
-      setIsAnimated(true);
+    if (current && current.time > 1 * 60) {
+      current.time -= 60;
+      setData((prev) => ({ ...prev, isAnimated: true }));
       setTimeout(() => {
-        setIsAnimated(false);
+        setData((prev) => ({ ...prev, isAnimated: false }));
       }, 500);
+      taskSet();
     }
-    taskSet();
   }
 
   function handlePlusTime() {
-    if (current.time < 59 * 60) {
-      current.time = current.time + 60;
+    if (current && current.time < 59 * 60) {
+      current.time += 60;
+      setData((prev) => ({ ...prev, isAnimated: true }));
+      setTimeout(() => {
+        setData((prev) => ({ ...prev, isAnimated: false }));
+      }, 500);
+      taskSet();
     }
-    setIsAnimated(true);
-    setTimeout(() => {
-      setIsAnimated(false);
-    }, 500);
-    taskSet();
   }
 
-  // getting minutes and seconds
+  // Getting minutes and seconds
   let minutes;
   let seconds;
 
   if (current) {
     minutes = getPadTimeZero(Math.floor(timeLeft / 60));
-    seconds = getPadTimeZero(timeLeft - minutes * 60);
+    seconds = getPadTimeZero(timeLeft % 60);
   } else {
     minutes = 25;
     seconds = '00';
   }
 
-  // timer logic
+  // Timer logic
   useEffect(() => {
     if (isCounting) {
       const interval = setInterval(() => {
         if (timeLeft > 1) {
-          timeLeft -= 1 - 1;
+          timeLeft -= 1;
         } else {
           timeLeft = 1;
         }
-        current.time = timeLeft -= 1;
-        setIsAnimated(true);
-        taskSet();
+        if (current) {
+          current.time = timeLeft;
+          taskSet();
+        }
+        setData((prev) => ({ ...prev, isAnimated: true }));
       }, 1000);
-      const intrevalAllTime = setInterval(() => {
+
+      const intervalAllTime = setInterval(() => {
         workTime.set(workTime.get() + 1);
       }, 1000);
+
       return () => {
         clearInterval(interval);
-        clearInterval(intrevalAllTime);
-        if (current.pauses == 0 && current.isCompelete && current.time == 0) {
-          current.countPomodoros = pomodorosOnCurrentTask.get();
+        clearInterval(intervalAllTime);
+
+        if (current) {
+          if (current.pauses === 0 && current.isCompelete && current.time === 0) {
+            current.countPomodoros = pomodorosOnCurrentTask.get();
+          } else if (current.pauses > 0) {
+            current.countPomodoros = 0;
+          }
+          pomodorosTask.set(pomodorosTask.get() + current.countPomodoros);
+          current.isCompelete = true;
           taskSet();
         }
-        current.isCompelete = true;
-        if (current.pauses > 0) {
-          current.countPomodoros = 0;
-          taskSet();
-        }
-        pomodorosTask.set(pomodorosTask.get() + current.countPomodoros);
-        taskSet();
       };
     }
   }, [isCounting]);
@@ -144,8 +164,8 @@ export function Timer() {
   }, [isPause]);
 
   useEffect(() => {
-    if (timeLeft == 0) {
-      setIsChill(true);
+    if (timeLeft === 0) {
+      setData((prev) => ({ ...prev, isChill: true }));
     }
   }, [timeLeft]);
 
@@ -157,25 +177,20 @@ export function Timer() {
           handleMinusTime={handleMinusTime}
           handlePlusTime={handlePlusTime}
           minutes={minutes}
-          isError={isError}
           seconds={seconds}
           handleStart={handleStart}
           handleStop={handleStop}
           isCounting={isCounting}
-          setIsCounting={setIsCounting}
-          taskSet={taskSet}
-          isChill={isChill}
-          setIsChill={setIsChill}
+          isError={isError}
           isAnimated={isAnimated}
         />
       ) : (
         <TimerChill
-          setIsAnimated={setIsAnimated}
+          setIsChill={(value) =>
+            setData((prev) => ({ ...prev, isChill: value }))
+          }
           isChill={isChill}
           isAnimated={isAnimated}
-          setIsChill={setIsChill}
-          isCounting={isCounting}
-          setIsCounting={setIsCounting}
         />
       )}
     </>
