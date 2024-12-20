@@ -1,13 +1,15 @@
 .focus {
-    background-color: #FFDDA9;
+  background-color: #ffdda9;
 }
 .pauseTime {
-    background-color: #DFDCFE;
+  background-color: #dfdcfe;
 }
 .amountPauses {
-    background-color: #C5F1FF;
+  background-color: #c5f1ff;
 }
-.pauseTime, .focus, .amountPauses {
-    padding: 25px;
-    width: 425px;
+.pauseTime,
+.focus,
+.amountPauses {
+  padding: 25px;
+  width: 425px;
 }

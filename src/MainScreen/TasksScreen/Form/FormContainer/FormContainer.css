@@ -1,37 +1,36 @@
 .form {
-    height: 55px;
-    width: 370px;
-    border: none;
-    background: #ececec;
-    outline: none;
-    padding: 17px;
-    font-size: 18px;
+  height: 55px;
+  width: 370px;
+  border: none;
+  background: #ececec;
+  outline: none;
+  padding: 17px;
+  font-size: 18px;
 }
-
 .add {
-    height: 55px;
-    width: 170px;
-    border: none;
-    margin-top: 15px;
-    background-color: #A8B64F;
-    color: #FFFFFF;
+  height: 55px;
+  width: 170px;
+  border: none;
+  margin-top: 15px;
+  background-color: #a8b64f;
+  color: #ffffff;
 }
 .errorAlert {
-    background-color: #ff3838;
-    width: 67%;
-    display: flex;
-    justify-content: center;
-    height: 50px;
-    align-items: center;
-    font-size: 20px;
-    border-radius: 7px;
-    color: white;
+  background-color: #ff3838;
+  width: 67%;
+  display: flex;
+  justify-content: center;
+  height: 50px;
+  align-items: center;
+  font-size: 20px;
+  border-radius: 7px;
+  color: white;
 }
 .tasks {
-    display: table;
-    width: 100%;
+  display: table;
+  width: 100%;
 }
 .allTimeTasks {
-    font-size: 17px;
-    color: #999999
+  font-size: 17px;
+  color: #999999;
 }

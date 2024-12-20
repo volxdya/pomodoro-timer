@@ -1,4 +1,4 @@
-import { hookstate } from "@hookstate/core";
+import { hookstate } from '@hookstate/core';
 
 export const tasksAll = hookstate([]);
 export const currentTaskId = hookstate('');

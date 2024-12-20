@@ -1,15 +1,15 @@
 body {
-    max-width: 1440px;
-    margin: 0 auto;
-    font-family: Arial;
-    background-color: #f8f8f8;
+  max-width: 1440px;
+  margin: 0 auto;
+  font-family: Arial;
+  background-color: #f8f8f8;
 }
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 .svg {
-    background-color: #ff0000;
+  background-color: #ff0000;
 }
 ul {
-    list-style: circle;
+  list-style: circle;
 }

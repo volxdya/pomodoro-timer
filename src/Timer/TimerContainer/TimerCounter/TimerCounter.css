@@ -1,16 +1,16 @@
 .timerCounter {
-    font-size: 105px;
+  font-size: 105px;
 }
 .buttonTime {
-    color: #FFFFFF;
-    background-color: #d5d5d5;
-    width: 55px;
-    height: 55px;
-    border-radius: 50%;
-    font-size: 35px;
-    border: none;
+  color: #ffffff;
+  background-color: #d5d5d5;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  font-size: 35px;
+  border: none;
 }
 .buttonTime:hover {
-    background-color: #899441;
-    transition: background-color 0.4s;
+  background-color: #899441;
+  transition: background-color 0.4s;
 }

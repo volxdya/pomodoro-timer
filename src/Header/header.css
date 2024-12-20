@@ -1,15 +1,16 @@
 .header {
-    display: flex;
-    padding: 40px;
-    justify-content: space-between;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    background-color: #fff;
+  display: flex;
+  padding: 40px;
+  justify-content: space-between;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
 }
-.title, .statistic {
-    color: red;
+.title,
+.statistic {
+  color: red;
 }
 .statistic:hover {
-    color: #B7280F;
+  color: #b7280f;
 }
